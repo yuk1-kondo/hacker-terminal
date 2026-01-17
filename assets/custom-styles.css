@@ -1,0 +1,60 @@
+/* =====================================================
+   CUSTOM STYLES - Layout Overrides Only
+   Main styles are in hacker-terminal.css
+   ===================================================== */
+
+#root {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-content: flex-start !important;
+  gap: 16px !important;
+  padding: 16px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Hide frequency pulse */
+[data-loc*="Home.tsx:282"] > :nth-child(1),
+[data-window-id*="FREQUENCY_PULSE"] {
+  display: none !important;
+}
+
+/* Window sizing for flexbox layout */
+div[class*="border"],
+[data-loc*="TerminalWindow"] {
+  flex: 0 1 calc(50% - 8px) !important;
+  min-width: 380px !important;
+  max-width: calc(50% - 8px) !important;
+  min-height: 280px !important;
+}
+
+/* Large screens - 3 columns */
+@media (min-width: 1600px) {
+  div[class*="border"],
+  [data-loc*="TerminalWindow"] {
+    flex: 0 1 calc(33.333% - 11px) !important;
+    max-width: calc(33.333% - 11px) !important;
+  }
+}
+
+/* Mobile - 1 column */
+@media (max-width: 767px) {
+  #root {
+    padding: 8px !important;
+    gap: 8px !important;
+  }
+
+  div[class*="border"],
+  [data-loc*="TerminalWindow"] {
+    flex: 0 1 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+}
+
+/* Extra windows keep absolute positioning */
+[data-loc*="TerminalWindow"][data-extra-window="1"] {
+  position: absolute !important;
+  flex: none !important;
+  z-index: 200 !important;
+}

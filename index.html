@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacker Terminal</title>
+  <!-- Load retro tech font & Japanese Gothic -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./assets/hacker-terminal.css">
+</head>
+<body>
+  <!-- Matrix Rain Canvas -->
+  <canvas id="matrix-rain"></canvas>
+
+  <!-- Main Dashboard -->
+  <div id="dashboard">
+    <!-- Header -->
+    <header class="terminal-header">
+      <div class="header-left">
+        <span class="prompt-root">root@cyber:~$</span>
+        <span class="header-title">SECURITY MONITORING SYSTEM v2.4.1</span>
+      </div>
+      <div class="header-right">
+        <span class="datetime" id="datetime"></span>
+        <span class="status-indicator"><span class="blink"></span>ONLINE</span>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <div class="dashboard-grid">
+
+      <!-- System Status Panel -->
+      <div class="panel system-status">
+        <div class="panel-header">
+          <span class="panel-title">/// SYSTEM STATUS</span>
+          <div class="panel-controls">
+            <button class="control-btn" data-action="refresh">⟳</button>
+          </div>
+        </div>
+        <div class="panel-content">
+          <div class="system-info">
+            <div class="info-row">
+              <span class="label">HOSTNAME</span>
+              <span class="value">cyber-node-07</span>
+            </div>
+            <div class="info-row">
+              <span class="label">OS</span>
+              <span class="value">ZephyrOS 5.2</span>
+            </div>
+            <div class="info-row">
+              <span class="label">KERNEL</span>
+              <span class="value">v5.18.41-sec</span>
+            </div>
+            <div class="info-row">
+              <span class="label">UPTIME</span>
+              <span class="value" id="uptime">47d 12h 34m</span>
+            </div>
+          </div>
+          <div class="metrics-grid">
+            <div class="metric">
+              <div class="metric-label">CPU</div>
+              <div class="metric-value" id="cpu-value">45%</div>
+              <div class="metric-bar">
+                <div class="metric-fill" id="cpu-bar" style="width: 45%"></div>
+              </div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">RAM</div>
+              <div class="metric-value" id="ram-value">62%</div>
+              <div class="metric-bar">
+                <div class="metric-fill" id="ram-bar" style="width: 62%"></div>
+              </div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">DISK</div>
+              <div class="metric-value" id="disk-value">71%</div>
+              <div class="metric-bar">
+                <div class="metric-fill" id="disk-bar" style="width: 71%"></div>
+              </div>
+            </div>
+            <div class="metric">
+              <div class="metric-label">TEMP</div>
+              <div class="metric-value" id="temp-value">54°C</div>
+              <div class="metric-bar">
+                <div class="metric-fill" id="temp-bar" style="width: 54%"></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Memory Dump Area -->
+          <div class="hex-dump-panel">
+            <div class="panel-subtitle">/// MEMORY DUMP</div>
+            <div class="hex-content" id="hex-dump"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Network Panel -->
+      <div class="panel network">
+        <div class="panel-header">
+          <span class="panel-title">/// NETWORK TRAFFIC</span>
+        </div>
+        <div class="panel-content">
+          <div class="network-stats">
+            <div class="net-stat">
+              <span class="net-label">DOWNLOAD</span>
+              <span class="net-value" id="net-rx">125.4 Mb/s</span>
+            </div>
+            <div class="net-stat">
+              <span class="net-label">UPLOAD</span>
+              <span class="net-value" id="net-tx">45.2 Mb/s</span>
+            </div>
+            <div class="net-stat">
+              <span class="net-label">CONNECTIONS</span>
+              <span class="net-value" id="net-conn">247</span>
+            </div>
+          </div>
+          <div class="network-graph">
+            <canvas id="network-canvas"></canvas>
+          </div>
+          <!-- Spectrum Analyzer -->
+          <div class="spectrum-analyzer">
+            <canvas id="spectrum-canvas"></canvas>
+          </div>
+          <div class="active-ports">
+            <div class="ports-title">ACTIVE PORTS</div>
+            <div class="port-list">
+              <span class="port">22/tcp <span class="port-status">SSH</span></span>
+              <span class="port">443/tcp <span class="port-status">HTTPS</span></span>
+              <span class="port">8080/tcp <span class="port-status">PROXY</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Log Stream Panel -->
+      <div class="panel log-stream">
+        <div class="panel-header">
+          <span class="panel-title">/// SYSTEM LOG</span>
+          <div class="log-count" id="log-count">0 entries</div>
+        </div>
+        <div class="panel-content">
+          <div class="log-container" id="log-container">
+            <!-- Logs will be inserted here -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Process Table Panel -->
+      <div class="panel process-table">
+        <div class="panel-header">
+          <span class="panel-title">/// ACTIVE PROCESSES</span>
+        </div>
+        <div class="panel-content">
+          <div class="table-header">
+            <span>PID</span>
+            <span>PROCESS</span>
+            <span>CPU</span>
+            <span>MEM</span>
+            <span>STATUS</span>
+          </div>
+          <div class="table-body" id="process-table">
+            <!-- Processes will be inserted here -->
+          </div>
+          <!-- World Map Outline -->
+          <div class="world-map-panel">
+            <div class="map-grid"></div>
+            <div class="map-pings"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Command Line Panel -->
+      <div class="panel command-line">
+        <div class="panel-header">
+          <span class="panel-title">/// COMMAND INTERFACE</span>
+        </div>
+        <div class="panel-content">
+          <div class="terminal-output" id="terminal-output">
+            <div class="output-line">ZephyrOS Security Terminal v2.4.1</div>
+            <div class="output-line">Type 'help' for available commands.</div>
+            <div class="output-line">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</div>
+          </div>
+          <div class="terminal-input">
+            <span class="prompt">root@cyber:~#</span>
+            <input type="text" id="command-input" placeholder="Enter command..." autocomplete="off">
+          </div>
+        </div>
+      </div>
+
+      <!-- Threat Monitor Panel -->
+      <div class="panel threat-monitor">
+        <div class="panel-header">
+          <span class="panel-title">/// THREAT DETECTION</span>
+        </div>
+        <div class="panel-content relative-container">
+          <!-- Radar Canvas (Background Layer) -->
+          <canvas id="threat-radar"></canvas>
+          <div class="radar-grid-overlay"></div>
+
+          <!-- HUD Info (Foreground Layer) -->
+          <div class="threat-hud">
+            <div class="threat-status">
+              <div class="threat-level" id="threat-level">
+                <span class="level-label">THREAT LEVEL</span>
+                <span class="level-value" id="level-value">LOW</span>
+              </div>
+            </div>
+            <div class="threat-list" id="threat-list">
+              <div class="threat-item">
+                <span class="threat-time">16:34:22</span>
+                <span class="threat-msg">Port scan detected from 192.168.1.105</span>
+                <span class="threat-status blocked">BLOCKED</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Alert Toast Container -->
+  <div class="alert-container" id="alert-container"></div>
+
+  <script src="./assets/hacker-terminal.js"></script>
+</body>
+</html>

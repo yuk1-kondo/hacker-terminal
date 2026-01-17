@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Hacker Terminal New Tab",
+  "version": "2.0.0",
+  "description": "Turn your new tab page into a cyberpunk hacker terminal dashboard with real-time data uplinks.",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
+  "host_permissions": [
+    "https://hacker-news.firebaseio.com/*",
+    "https://api.open-meteo.com/*",
+    "https://www.youtube.com/*"
+  ],
+  "content_security_policy": {
+    "extension_pages": "script-src 'self'; object-src 'self'; frame-src https://www.youtube.com;"
+  }
+}

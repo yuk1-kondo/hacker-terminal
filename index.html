@@ -149,9 +149,12 @@
           <span class="panel-title">/// SYSTEM LOG</span>
           <div class="log-count" id="log-count">0 entries</div>
         </div>
-        <div class="panel-content">
+        <div class="panel-content log-panel">
           <div class="log-container" id="log-container">
             <!-- Logs will be inserted here -->
+          </div>
+          <div class="log-matrix">
+            <canvas id="log-matrix-canvas"></canvas>
           </div>
         </div>
       </div>
@@ -198,6 +201,10 @@
           <div class="terminal-input">
             <span class="prompt">root@cyber:~#</span>
             <input type="text" id="command-input" placeholder="Enter command..." autocomplete="off">
+          </div>
+          <div class="link-section">
+            <div class="panel-subtitle">/// QUICK LINKS</div>
+            <div class="link-list" id="link-list"></div>
           </div>
         </div>
       </div>

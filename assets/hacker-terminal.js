@@ -358,6 +358,52 @@ function initLogs() {
     setTimeout(scheduleNextLog, Math.random() * 2000 + 500);
   }
   scheduleNextLog();
+
+  function initLogMatrix() {
+    const canvas = document.getElementById('log-matrix-canvas');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const container = canvas.parentElement;
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}[]#$%*+-';
+    const fontSize = 12;
+    let columns = 0;
+    let drops = [];
+
+    function resize() {
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+      columns = Math.floor(canvas.width / fontSize);
+      drops = Array(columns).fill(1);
+    }
+
+    resize();
+    window.addEventListener('resize', resize);
+
+    function draw() {
+      ctx.fillStyle = 'rgba(40, 42, 54, 0.15)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#50FA7B';
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars[Math.floor(Math.random() * chars.length)];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+        ctx.fillText(text, x, y);
+
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(draw, 60);
+  }
+
+  initLogMatrix();
 }
 
 // --- PROCESS TABLE ---
@@ -433,10 +479,18 @@ function initCommands() {
   const pulseList = document.getElementById('pulse-list');
   const flowField = document.getElementById('flow-field');
   const defragGrid = document.getElementById('defrag-grid');
+  const linkList = document.getElementById('link-list');
   if (!input || !output) return;
 
+  const linkStorageKey = 'terminal.quickLinks.v1';
+  const defaultLinks = [
+    { label: 'GITHUB', url: 'https://github.com' },
+    { label: 'GOOGLE', url: 'https://www.google.com' },
+    { label: 'HACKER NEWS', url: 'https://news.ycombinator.com' }
+  ];
+
   const commands = {
-    help: 'Available commands: help, scan, trace, status, ping, clear, date, whoami, neofetch',
+    help: 'Available commands: help, scan, trace, status, ping, clear, date, whoami, neofetch, links, link-add, link-remove, link-reset',
     scan: '[OK] Network scan complete. 12 hosts found, 3 ports open.',
     trace: 'Route: localhost → gateway (2ms) → ISP (15ms) → google.com (24ms)',
     status: 'System Status: SECURE\nFirewall: ACTIVE\nVPN: CONNECTED\nThreat Level: LOW',
@@ -465,6 +519,57 @@ function initCommands() {
     `
   };
 
+  function normalizeLabel(value) {
+    return value.trim().replace(/\s+/g, ' ').toUpperCase();
+  }
+
+  function sanitizeUrl(value) {
+    const raw = value.trim();
+    if (!raw) return null;
+    const withScheme = raw.match(/^https?:\/\//i) ? raw : `https://${raw}`;
+    try {
+      const url = new URL(withScheme);
+      return url.href;
+    } catch {
+      return null;
+    }
+  }
+
+  function loadLinks() {
+    if (!linkList) return defaultLinks;
+    const stored = localStorage.getItem(linkStorageKey);
+    if (!stored) return defaultLinks;
+    try {
+      const parsed = JSON.parse(stored);
+      if (!Array.isArray(parsed)) return defaultLinks;
+      return parsed.filter(item => item && typeof item.label === 'string' && typeof item.url === 'string');
+    } catch {
+      return defaultLinks;
+    }
+  }
+
+  function saveLinks(links) {
+    if (!linkList) return;
+    localStorage.setItem(linkStorageKey, JSON.stringify(links));
+  }
+
+  function renderLinks(links) {
+    if (!linkList) return;
+    linkList.innerHTML = '';
+    links.forEach(({ label, url }) => {
+      const link = document.createElement('a');
+      link.className = 'link-item';
+      link.href = url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.textContent = label;
+      linkList.appendChild(link);
+    });
+  }
+
+  let quickLinks = loadLinks();
+  renderLinks(quickLinks);
+
   function addOutput(text) {
     const line = document.createElement('div');
     line.className = 'output-line';
@@ -486,6 +591,70 @@ function initCommands() {
     output.scrollTop = output.scrollHeight;
   }
 
+  function formatLinksList(links) {
+    if (!links.length) return 'No links stored.';
+    return links.map((link, index) => `${index + 1}. ${link.label} -> ${link.url}`).join('\n');
+  }
+
+  function handleLinkCommand(cmdName, args) {
+    if (cmdName === 'links') {
+      addOutput(formatLinksList(quickLinks));
+      return true;
+    }
+
+    if (cmdName === 'link-add') {
+      const label = normalizeLabel(args[0] || '');
+      const url = sanitizeUrl(args.slice(1).join(' '));
+      if (!label || !url) {
+        addOutput('Usage: link-add LABEL URL');
+        return true;
+      }
+
+      const existsIndex = quickLinks.findIndex(link => link.label === label);
+      if (existsIndex >= 0) {
+        quickLinks[existsIndex] = { label, url };
+        addOutput(`Updated link: ${label}`);
+      } else {
+        quickLinks.push({ label, url });
+        addOutput(`Added link: ${label}`);
+      }
+
+      saveLinks(quickLinks);
+      renderLinks(quickLinks);
+      return true;
+    }
+
+    if (cmdName === 'link-remove') {
+      const label = normalizeLabel(args.join(' '));
+      if (!label) {
+        addOutput('Usage: link-remove LABEL');
+        return true;
+      }
+
+      const nextLinks = quickLinks.filter(link => link.label !== label);
+      if (nextLinks.length === quickLinks.length) {
+        addOutput(`No link found: ${label}`);
+        return true;
+      }
+
+      quickLinks = nextLinks;
+      saveLinks(quickLinks);
+      renderLinks(quickLinks);
+      addOutput(`Removed link: ${label}`);
+      return true;
+    }
+
+    if (cmdName === 'link-reset') {
+      quickLinks = [...defaultLinks];
+      saveLinks(quickLinks);
+      renderLinks(quickLinks);
+      addOutput('Links reset to defaults.');
+      return true;
+    }
+
+    return false;
+  }
+
   input.addEventListener('keydown', (e) => {
     if (e.key === 'Enter') {
       const cmd = input.value.trim();
@@ -495,7 +664,15 @@ function initCommands() {
 
       const parts = cmd.split(' ');
       const cmdName = parts[0].toLowerCase();
+      const args = parts.slice(1);
       const response = commands[cmdName];
+
+      if (handleLinkCommand(cmdName, args)) {
+        state.commandHistory.push(cmd);
+        state.historyIndex = state.commandHistory.length;
+        input.value = '';
+        return;
+      }
 
       if (response) {
         if (typeof response === 'function') {

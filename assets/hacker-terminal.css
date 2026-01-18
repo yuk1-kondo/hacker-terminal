@@ -657,6 +657,12 @@ body::before {
   font-size: 10px;
 }
 
+.log-panel {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 12px;
+}
+
 .log-container {
   display: flex;
   flex-direction: column;
@@ -673,6 +679,25 @@ body::before {
   animation: logSlide 0.3s ease-out;
 }
 
+.log-matrix {
+  position: relative;
+  border-radius: 4px;
+  background: rgba(40, 42, 54, 0.45);
+  border: 1px solid rgba(139, 233, 253, 0.3);
+  overflow: hidden;
+}
+
+#log-matrix-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .log-panel {
+    grid-template-columns: 1fr;
+  }
+}
 @keyframes logSlide {
   from {
     opacity: 0;
@@ -779,6 +804,52 @@ body::before {
 
 .terminal-input input::placeholder {
   color: #6272A4;
+}
+
+.link-section {
+  margin-top: 10px;
+}
+
+.link-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.link-item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 8px;
+  background: rgba(68, 71, 90, 0.5);
+  border: 1px solid #44475a;
+  border-radius: 3px;
+  color: #F8F8F2;
+  text-decoration: none;
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-item:hover {
+  border-color: #BD93F9;
+  color: #BD93F9;
+  box-shadow: 0 0 10px rgba(189, 147, 249, 0.4);
+}
+
+.link-item:focus-visible {
+  outline: 2px solid #BD93F9;
+  outline-offset: 2px;
+}
+
+@media (max-width: 900px) {
+  .link-list {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* --- THREAT MONITOR PANEL & RADAR --- */

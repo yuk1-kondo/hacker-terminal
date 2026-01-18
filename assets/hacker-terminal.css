@@ -1032,8 +1032,8 @@ body::before {
 .calendar,
 .file-tree {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 10px;
-  line-height: 1.4;
+  font-size: 11px;
+  line-height: 1.5;
   color: #8BE9FD;
   margin: 0;
   white-space: pre;
@@ -1068,7 +1068,7 @@ body::before {
 
 #threat-radar {
   position: absolute;
-  top: 50px;
+  top: 80px;
   left: 0;
   width: 100%;
   height: 100%;

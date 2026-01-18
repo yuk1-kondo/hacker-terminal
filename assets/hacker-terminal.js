@@ -603,11 +603,13 @@ function initCommands() {
   let quickLinks = loadLinks();
   renderLinks(quickLinks);
 
-  // ASCII Art with animation
+  // ASCII Art with animation - different patterns
   function initAsciiArt() {
     if (!asciiArt) return;
 
-    const nexusAscii = `
+    const asciiPatterns = [
+      // Pattern 1: Original
+      `
 <span class="color-shift">    _   _    ___  ____    ___  ___  ___
    | | / \\  / _ \\|  _ \\  | _ \\/ __|| _ \\
    | |/ _ \\| | | | | | | |   \\ (__ |   /
@@ -617,8 +619,67 @@ function initCommands() {
   |_ _| |  _ \\  / \\ | _ \\/ __|
    | |  | | | |/ _ \\|   \\ (__
   |___| |_| |_|/_/ \\_\\_|_|\\\\___|
-</span>`;
-    asciiArt.innerHTML = nexusAscii;
+</span>`,
+      // Pattern 2: Block style
+      `
+<span class="color-shift">┌─────────┐ ┌─────────┐ ┌───┐ ┌───┐ ┌─────────┐
+│ _  _   │ │_     _ _| │ \\ │ │ \\ │ │_     _ _| │
+|| || |  │   |   | |   │  \\│ │  \\│   |   | |   │
+||_||_|  │   |_| |_|   │    \\│    \\   |_| |_|   │
+└─────────┘ └─────────┘ └───┘ └───┘ └─────────┘
+</span>
+<span class="glitch">┌───┬───────┐ ┌───────┐ ┌───┐ ┌───────┐
+│ \\ │ │ │ │ │ |   | │ │ │ │ │ |   | │
+│  \\│ │ │ │ │ |   | │ │ │ │ │ |   | │
+│    \\│ │ │ │ │___| │ │   \\│ │___| │
+└────┴───────┴───────┴─────┴───────┴─
+</span>`,
+      // Pattern 3: Compact
+      `
+<span class="color-shift">█▀▀█ █▀▀█ █▀▀▄ █▀▀▀ 　 █▀▀▀ █▀▀▀ █▀▀▀ █▀▀
+█  █ █▀▀▄ █▀▀▀ █▀▀▀ 　 ▀▀▀█ ▀▀▀█ ▀▀▀█ ▀▀▀
+▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ 　 ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀
+</span>
+<span class="glitch">█▀▀█ █▀▀ █▀▀▀ █▀▀▀ █▀▀▀ █▀▀
+█▀▀▀ █▀▀ █▀▀▀ ▀▀▀█ ▀▀▀█ █▀▀
+▀▀▀▀ ▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀▀ ▀▀▀
+</span>`,
+      // Pattern 4: Stars
+      `
+<span class="color-shift">★ ☆ ★ Nexus ★ ☆ ★ Onyx BSD ★ ☆ ★
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+═ ═ ═ ═ T E R M I N A L ═ ═ ═ ═ ═
+▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒
+</span>
+<span class="glitch">◆ ◇ ◆ Secure ◇ ◆ System ◇ ◆ Monitor
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+║ ║ ║ v2.4.1 ║ ║ ║ ║ ║ ║ ║ ║ ║ ║ ║
+░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+</span>`,
+      // Pattern 5: Binary
+      `
+<span class="color-shift">01001110 01000101 01011000 01010101 01010011
+NEXUS // ONYX BSD // TERMINAL v2.4.1
+[████████░░░░░░░] 60% LOADED
+</span>
+<span class="glitch">01001111 01001110 01011001 01011000 00100000
+SYSTEM // SECURE // MONITORING
+[████████████░░░] 75% SECURE
+</span>`
+    ];
+
+    let currentIndex = 0;
+
+    function showNextPattern() {
+      asciiArt.innerHTML = asciiPatterns[currentIndex];
+      currentIndex = (currentIndex + 1) % asciiPatterns.length;
+    }
+
+    // Initial display
+    showNextPattern();
+
+    // Change pattern every 4 seconds
+    setInterval(showNextPattern, 4000);
   }
 
   initAsciiArt();

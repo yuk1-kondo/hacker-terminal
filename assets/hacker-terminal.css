@@ -1042,7 +1042,7 @@ body::before {
 
 .file-tree {
   font-family: 'Share Tech Mono', monospace;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.4;
   color: #8BE9FD;
   margin: 0;
@@ -1054,6 +1054,31 @@ body::before {
   color: #FF79C6;
   font-weight: bold;
   text-shadow: 0 0 8px #FF79C6;
+}
+
+.calendar-footer {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px solid rgba(98, 114, 164, 0.3);
+}
+
+.sys-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 10px;
+}
+
+.sys-label {
+  color: #6272A4;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sys-value {
+  color: #50FA7B;
+  font-weight: bold;
 }
 
 .file-tree .folder {

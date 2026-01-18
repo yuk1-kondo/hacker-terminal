@@ -501,6 +501,7 @@ function initCommands() {
   const asciiArt = document.getElementById('ascii-art');
   const calendar = document.getElementById('calendar');
   const fileTree = document.getElementById('file-tree');
+  const calUptime = document.getElementById('cal-uptime');
   const themeToggle = document.getElementById('theme-toggle');
   const themeLabel = document.getElementById('theme-label');
   if (!input || !output) return;
@@ -733,6 +734,29 @@ SYSTEM // SECURE // MONITORING
   }
 
   initCalendar();
+
+  // Update Uptime in calendar footer
+  function updateUptime() {
+    if (!calUptime) return;
+
+    // Simulate uptime starting from a fixed date
+    const bootTime = new Date();
+    bootTime.setDate(bootTime.getDate() - 47); // 47 days ago
+    bootTime.setHours(bootTime.getHours() - 12);
+    bootTime.setMinutes(bootTime.getMinutes() - 34);
+
+    const now = new Date();
+    const diff = now - bootTime;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+    calUptime.textContent = `${days}d ${hours}h ${minutes}m`;
+  }
+
+  updateUptime();
+  setInterval(updateUptime, 60000); // Update every minute
 
   // File Tree
   function initFileTree() {

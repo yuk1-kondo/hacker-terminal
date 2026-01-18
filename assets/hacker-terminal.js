@@ -54,7 +54,7 @@ function initBootSequence(callback) {
     "Initializing USB Controllers.. Done.",
     "16384MB OK",
     "",
-    "Loading ZephyrOS Kernel...",
+    "Loading Onyx BSD Kernel...",
     "[ OK ] Started Show Plymouth Boot Screen.",
     "[ OK ] Reached target Paths.",
     "[ OK ] Reached target Basic System.",
@@ -527,17 +527,17 @@ function initCommands() {
     ping: 'PING google.com (142.250.185.46): 56 data bytes\n64 bytes from 142.250.185.46: icmp_seq=0 ttl=117 time=24ms',
     clear: 'CLEAR',
     date: () => new Date().toString(),
-    whoami: 'root',
+    whoami: 'yuki',
     neofetch: `
-       _,met$$$$$gg.          root@cyber-node-07
+       _,met$$$$$gg.          yuki@onyx-node-07
     ,g$$$$$$$$$$$$$$$P.       -----------------
-  ,g$$P"     """Y$$.".        OS: ZephyrOS 5.2
- ,$$P'              \`$$$.     Host: CyberNode X1
+  ,g$$P"     """Y$$.".        OS: Onyx BSD 5.2
+ ,$$P'              \`$$$.     Host: OnyxNode X1
 ',$$P       ,ggs.     \`$$b:   Kernel: 5.18.41-sec
 \`d$$'     ,$P"'   .    $$$    Uptime: 47 days
   $$P      d$'     ,    $$P    Shell: bash 5.1
   $$:      $$.   -    ,d$$'    Resolution: 1920x1080
-  $$;      Y$b._   _,d$P'      Theme: Hacker Terminal
+  $$;      Y$b._   _,d$P'      Theme: NexusTerminal
   Y$$.    \`."Y$$$$P"'         Font: Monospace
    $$b      "-.__              CPU: AMD Ryzen @ 4.2GHz
     Y$$                        Memory: 16384MB
@@ -690,7 +690,7 @@ function initCommands() {
       const cmd = input.value.trim();
       if (!cmd) return;
 
-      addOutput(`root@cyber:~# ${cmd}`);
+      addOutput(`yuki@onyx:~# ${cmd}`);
 
       const parts = cmd.split(' ');
       const cmdName = parts[0].toLowerCase();
@@ -763,22 +763,22 @@ function initCommands() {
     if (!flowField) return;
     const particle = document.createElement('div');
     particle.className = 'flow-particle';
-    if (Math.random() > 0.7) {
+    if (Math.random() > 0.75) {
       particle.classList.add('is-alert');
     }
     const offset = Math.random() * 70 - 35;
     particle.style.top = `calc(50% + ${offset}px)`;
-    particle.style.animationDuration = `${Math.random() * 0.6 + 0.6}s`;
-    particle.style.animationDelay = `${Math.random() * 0.3}s`;
-    const width = Math.random() * 20 + 14;
+    particle.style.animationDuration = `${Math.random() * 1.5 + 2.5}s`;
+    particle.style.left = '0';
+    const width = Math.random() * 140 + 60;
     particle.style.width = `${width}px`;
-    particle.style.opacity = `${Math.random() * 0.5 + 0.5}`;
+    particle.style.opacity = `${Math.random() * 0.3 + 0.7}`;
 
     flowField.appendChild(particle);
 
     setTimeout(() => {
       particle.remove();
-    }, 1400);
+    }, 4500);
   }
 
   function updateDefrag() {

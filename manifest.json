@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Hacker Terminal New Tab",
+  "name": "NexusTerminal",
   "version": "2.0.1",
-  "description": "Turn your new tab page into a cyberpunk hacker terminal dashboard with real-time data uplinks.",
+  "description": "Turn your new tab page into an Onyx BSD monitoring terminal with real-time data uplinks.",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },

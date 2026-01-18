@@ -340,7 +340,7 @@ const createSystemPanel = (windowElement) => {
     <div class="panel-title">HOST PROFILE</div>
     <div class="panel-grid">
       <div><span class="label">HOST</span><span class="value">orion-node-07</span></div>
-      <div><span class="label">OS</span><span class="value">ZephyrOS 5.2</span></div>
+      <div><span class="label">OS</span><span class="value">Onyx BSD 5.2</span></div>
       <div><span class="label">KERNEL</span><span class="value">v5.18.41-sec</span></div>
       <div><span class="label">REGION</span><span class="value">eu-central</span></div>
     </div>

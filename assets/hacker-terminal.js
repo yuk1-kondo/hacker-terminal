@@ -430,6 +430,9 @@ function initProcesses() {
 function initCommands() {
   const input = document.getElementById('command-input');
   const output = document.getElementById('terminal-output');
+  const pulseList = document.getElementById('pulse-list');
+  const flowField = document.getElementById('flow-field');
+  const defragGrid = document.getElementById('defrag-grid');
   if (!input || !output) return;
 
   const commands = {
@@ -528,6 +531,79 @@ function initCommands() {
       }
     }
   });
+
+  function renderPulses() {
+    if (!pulseList) return;
+    pulseList.innerHTML = '';
+    const count = 8;
+    for (let i = 0; i < count; i++) {
+      const pulse = document.createElement('div');
+      pulse.className = 'pulse-item';
+      const roll = Math.random();
+      if (roll > 0.75) {
+        pulse.classList.add('is-hot');
+      } else if (roll > 0.4) {
+        pulse.classList.add('is-cool');
+      }
+      pulse.style.animationDelay = `${Math.random() * 1.8}s`;
+      pulse.style.animationDuration = `${Math.random() * 1.4 + 1.2}s`;
+      pulseList.appendChild(pulse);
+    }
+  }
+
+  function spawnFlowParticle() {
+    if (!flowField) return;
+    const particle = document.createElement('div');
+    particle.className = 'flow-particle';
+    if (Math.random() > 0.75) {
+      particle.classList.add('is-alert');
+    }
+    const offset = Math.random() * 36 - 18;
+    particle.style.top = `calc(50% + ${offset}px)`;
+    particle.style.animationDuration = `${Math.random() * 1.6 + 1.2}s`;
+    particle.style.animationDelay = `${Math.random() * 0.8}s`;
+    const width = Math.random() * 10 + 6;
+    particle.style.width = `${width}px`;
+    particle.style.opacity = `${Math.random() * 0.4 + 0.6}`;
+
+    flowField.appendChild(particle);
+
+    setTimeout(() => {
+      particle.remove();
+    }, 2600);
+  }
+
+  function updateDefrag() {
+    if (!defragGrid) return;
+    if (!defragGrid.children.length) {
+      const total = 120;
+      for (let i = 0; i < total; i++) {
+        const cell = document.createElement('div');
+        cell.className = 'defrag-cell';
+        defragGrid.appendChild(cell);
+      }
+    }
+
+    Array.from(defragGrid.children).forEach((cell) => {
+      cell.classList.remove('is-active', 'is-warn');
+      const roll = Math.random();
+      if (roll > 0.88) {
+        cell.classList.add('is-warn');
+      } else if (roll > 0.7) {
+        cell.classList.add('is-active');
+      }
+    });
+  }
+
+  function startVisualLoops() {
+    renderPulses();
+    updateDefrag();
+    setInterval(renderPulses, 2200);
+    setInterval(spawnFlowParticle, 220);
+    setInterval(updateDefrag, 1200);
+  }
+
+  startVisualLoops();
 
   // Focus input on click anywhere in terminal
   document.querySelector('.command-line')?.addEventListener('click', () => {
@@ -872,30 +948,32 @@ function initSpectrumAnalyzer() {
 // --- WORLD MAP ---
 function initWorldMap() {
   const panel = document.querySelector('.map-pings');
-  if (!panel) return;
-  
+  const mapPanel = document.querySelector('.world-map-panel');
+  if (!panel || !mapPanel) return;
+
+  const scanLine = document.createElement('div');
+  scanLine.className = 'map-scan-line';
+  mapPanel.appendChild(scanLine);
+
   function ping() {
     const dot = document.createElement('div');
     dot.className = 'ping-dot';
-    
-    // Random position
+
     const x = Math.random() * 100;
     const y = Math.random() * 100;
-    
+
     dot.style.left = x + '%';
     dot.style.top = y + '%';
-    
+
     panel.appendChild(dot);
-    
-    // Cleanup
+
     setTimeout(() => {
-       dot.remove();
+      dot.remove();
     }, 2000);
-    
-    // Schedule next
+
     setTimeout(ping, Math.random() * 1000 + 200);
   }
-  
+
   ping();
 }
 

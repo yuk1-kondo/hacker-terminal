@@ -1,20 +1,20 @@
 {
   "manifest_version": 3,
-  "name": "NexusTerminal",
+  "name": "Nexus Terminal",
   "version": "2.0.1",
-  "description": "Turn your new tab page into an Onyx BSD monitoring terminal with real-time data uplinks.",
+  "description": "Transform your browser's new tab page into a cyberpunk monitoring terminal. Features real-time network traffic visualization, system metrics, threat detection radar, calendar, file tree, and animated data streams styled like an Onyx BSD system.",
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
-    "128": "icons/icon128.png"
+    "128": "icons/icon128.png",
+    "256": "icons/icon256.png"
   },
   "host_permissions": [
-    "https://hacker-news.firebaseio.com/*",
-    "https://api.open-meteo.com/*",
-    "https://www.youtube.com/*"
+    "https://www.youtube.com/*",
+    "https://cybermap.kaspersky.com/*"
   ],
   "content_security_policy": {
     "extension_pages": "script-src 'self'; object-src 'self'; frame-src https://www.youtube.com https://cybermap.kaspersky.com;"

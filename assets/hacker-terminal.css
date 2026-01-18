@@ -25,7 +25,7 @@ html, body {
 
 body {
   background: var(--scene-bg);
-  font-family: 'Share Tech Mono', 'Noto Sans JP', 'Consolas', 'Monaco', monospace;
+  font-family: 'Share Tech Mono', 'Courier New', 'Consolas', 'Monaco', 'Menlo', monospace;
   color: var(--scene-accent);
   font-size: 15px;
 }
@@ -37,13 +37,13 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #282A36; /* Dracula Background */
+  background: #282A36;
   z-index: 100000;
   padding: 20px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  font-family: 'Share Tech Mono', 'Noto Sans JP', monospace;
+  font-family: 'Share Tech Mono', 'Courier New', 'Consolas', monospace;
 }
 
 .boot-line {
@@ -1027,7 +1027,7 @@ body::before {
 }
 
 .calendar {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Share Tech Mono', 'Courier New', 'Consolas', monospace;
   font-size: 16px;
   line-height: 1.4;
   color: #8BE9FD;
@@ -1038,7 +1038,7 @@ body::before {
 }
 
 .file-tree {
-  font-family: 'Share Tech Mono', monospace;
+  font-family: 'Share Tech Mono', 'Courier New', 'Consolas', monospace;
   font-size: 14px;
   line-height: 1.4;
   color: #8BE9FD;

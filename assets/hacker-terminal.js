@@ -984,7 +984,7 @@ function initThreatMonitor() {
     const cx = w/2;
     const cy = h/2;
     // Radius based on smallest dimension to fit
-    const radius = Math.min(w, h) / 2 * 0.9; 
+    const radius = Math.min(w, h) / 2 * 0.75; 
 
     // Clear
     ctx.clearRect(0, 0, w, h);

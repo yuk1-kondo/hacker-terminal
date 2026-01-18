@@ -575,7 +575,15 @@ function initCommands() {
     { id: 'alert', label: 'ALERT', bg: '#2b1b22', panel: 'rgba(39, 25, 31, 0.9)', accent: '#FF5555', highlight: '#FF79C6', muted: '#80606f' },
     { id: 'stealth', label: 'STEALTH', bg: '#0f1a1f', panel: 'rgba(18, 28, 32, 0.9)', accent: '#69FF94', highlight: '#8BE9FD', muted: '#4d6b74' },
     { id: 'neon', label: 'NEON', bg: '#1a0f1f', panel: 'rgba(32, 16, 40, 0.9)', accent: '#00f5ff', highlight: '#ffb86c', muted: '#7a5c8a' },
-    { id: 'sunrise', label: 'SUNRISE', bg: '#2a1c10', panel: 'rgba(45, 28, 18, 0.9)', accent: '#ffb86c', highlight: '#f1fa8c', muted: '#9b7b5c' }
+    { id: 'sunrise', label: 'SUNRISE', bg: '#2a1c10', panel: 'rgba(45, 28, 18, 0.9)', accent: '#ffb86c', highlight: '#f1fa8c', muted: '#9b7b5c' },
+    { id: 'matrix', label: 'MATRIX', bg: '#001100', panel: 'rgba(0, 20, 0, 0.9)', accent: '#00FF00', highlight: '#00FF41', muted: '#003F00' },
+    { id: 'cyber', label: 'CYBER', bg: '#001a1f', panel: 'rgba(0, 30, 40, 0.9)', accent: '#00FFFF', highlight: '#7DF9FF', muted: '#004d59' },
+    { id: 'plasma', label: 'PLASMA', bg: '#1a0014', panel: 'rgba(40, 0, 30, 0.9)', accent: '#FF00FF', highlight: '#FF77FF', muted: '#660066' },
+    { id: 'inferno', label: 'INFERNO', bg: '#1a0a00', panel: 'rgba(40, 20, 0, 0.9)', accent: '#FF6600', highlight: '#FFAA00', muted: '#663300' },
+    { id: 'frost', label: 'FROST', bg: '#0a1a2a', panel: 'rgba(15, 25, 40, 0.9)', accent: '#00BFFF', highlight: '#87CEFA', muted: '#1a3a5a' },
+    { id: 'void', label: 'VOID', bg: '#000000', panel: 'rgba(10, 10, 10, 0.9)', accent: '#888888', highlight: '#AAAAAA', muted: '#333333' },
+    { id: 'toxic', label: 'TOXIC', bg: '#0a1a00', panel: 'rgba(20, 30, 0, 0.9)', accent: '#BFFF00', highlight: '#7FFF00', muted: '#335500' },
+    { id: 'ocean', label: 'OCEAN', bg: '#000f1a', panel: 'rgba(0, 20, 35, 0.9)', accent: '#00D4FF', highlight: '#5EFFFF', muted: '#00334d' }
   ];
   let themeIndex = 0;
 

@@ -485,18 +485,26 @@ body::before {
 
 .ping-dot {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 7px;
+  height: 7px;
   background: #FF79C6;
   border-radius: 50%;
-  box-shadow: 0 0 10px #FF79C6;
-  animation: pingFade 2s ease-out forwards;
+  box-shadow: 0 0 14px rgba(255, 121, 198, 0.9);
+  animation: pingFade 2.4s ease-out forwards;
+}
+
+.ping-dot::after {
+  content: '';
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(139, 233, 253, 0.5);
 }
 
 @keyframes pingFade {
-  0% { transform: scale(0); opacity: 1; }
-  50% { opacity: 0.8; }
-  100% { transform: scale(3); opacity: 0; }
+  0% { transform: scale(0.4); opacity: 0; }
+  50% { opacity: 0.9; }
+  100% { transform: scale(3.4); opacity: 0; }
 }
 
 .pulse-panel {
@@ -553,7 +561,7 @@ body::before {
 
 .flow-field {
   position: relative;
-  height: 48px;
+  height: 72px;
   border-radius: 4px;
   background: rgba(40, 42, 54, 0.6);
   overflow: hidden;
@@ -562,11 +570,11 @@ body::before {
 .flow-particle {
   position: absolute;
   top: 50%;
-  width: 8px;
-  height: 2px;
+  width: 14px;
+  height: 4px;
   border-radius: 999px;
   background: rgba(80, 250, 123, 0.9);
-  box-shadow: 0 0 8px rgba(80, 250, 123, 0.7);
+  box-shadow: 0 0 12px rgba(80, 250, 123, 0.75);
   animation: flowMove 2.2s linear forwards;
 }
 
@@ -576,9 +584,9 @@ body::before {
 }
 
 @keyframes flowMove {
-  0% { transform: translateX(-20px); opacity: 0; }
+  0% { transform: translateX(-30px); opacity: 0; }
   10% { opacity: 1; }
-  100% { transform: translateX(140%); opacity: 0; }
+  100% { transform: translateX(180%); opacity: 0; }
 }
 
 /* --- NETWORK PANEL --- */
@@ -659,7 +667,7 @@ body::before {
 
 .log-panel {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 2fr 1.5fr;
   gap: 12px;
 }
 

@@ -366,7 +366,7 @@ function initLogs() {
     const container = canvas.parentElement;
 
     const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}[]#$%*+-';
-    const fontSize = 12;
+    const fontSize = 14;
     let columns = 0;
     let drops = [];
 
@@ -712,18 +712,19 @@ function initCommands() {
   function renderPulses() {
     if (!pulseList) return;
     pulseList.innerHTML = '';
-    const count = 8;
+    const count = Math.floor(Math.random() * 5) + 7;
     for (let i = 0; i < count; i++) {
       const pulse = document.createElement('div');
       pulse.className = 'pulse-item';
       const roll = Math.random();
-      if (roll > 0.75) {
+      if (roll > 0.8) {
         pulse.classList.add('is-hot');
-      } else if (roll > 0.4) {
+      } else if (roll > 0.35) {
         pulse.classList.add('is-cool');
       }
-      pulse.style.animationDelay = `${Math.random() * 1.8}s`;
-      pulse.style.animationDuration = `${Math.random() * 1.4 + 1.2}s`;
+      pulse.style.animationDelay = `${Math.random() * 1.2}s`;
+      pulse.style.animationDuration = `${Math.random() * 1.2 + 0.8}s`;
+      pulse.style.opacity = `${Math.random() * 0.4 + 0.6}`;
       pulseList.appendChild(pulse);
     }
   }
@@ -732,22 +733,22 @@ function initCommands() {
     if (!flowField) return;
     const particle = document.createElement('div');
     particle.className = 'flow-particle';
-    if (Math.random() > 0.75) {
+    if (Math.random() > 0.7) {
       particle.classList.add('is-alert');
     }
-    const offset = Math.random() * 36 - 18;
+    const offset = Math.random() * 70 - 35;
     particle.style.top = `calc(50% + ${offset}px)`;
-    particle.style.animationDuration = `${Math.random() * 1.6 + 1.2}s`;
-    particle.style.animationDelay = `${Math.random() * 0.8}s`;
-    const width = Math.random() * 10 + 6;
+    particle.style.animationDuration = `${Math.random() * 0.6 + 0.6}s`;
+    particle.style.animationDelay = `${Math.random() * 0.3}s`;
+    const width = Math.random() * 20 + 14;
     particle.style.width = `${width}px`;
-    particle.style.opacity = `${Math.random() * 0.4 + 0.6}`;
+    particle.style.opacity = `${Math.random() * 0.5 + 0.5}`;
 
     flowField.appendChild(particle);
 
     setTimeout(() => {
       particle.remove();
-    }, 2600);
+    }, 1400);
   }
 
   function updateDefrag() {
@@ -775,8 +776,8 @@ function initCommands() {
   function startVisualLoops() {
     renderPulses();
     updateDefrag();
-    setInterval(renderPulses, 2200);
-    setInterval(spawnFlowParticle, 220);
+    setInterval(renderPulses, 1600);
+    setInterval(spawnFlowParticle, 120);
     setInterval(updateDefrag, 1200);
   }
 
@@ -1059,11 +1060,9 @@ function initGlitchEffect() {
    function triggerGlitch() {
       if(Math.random() > 0.9) { // 10% chance when called
          dashboard.style.transform = `translate(${Math.random()*4-2}px, ${Math.random()*4-2}px)`;
-         dashboard.style.filter = 'hue-rotate(90deg)';
          
          setTimeout(() => {
             dashboard.style.transform = 'none';
-            dashboard.style.filter = 'none';
          }, 100);
       }
    }

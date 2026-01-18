@@ -515,6 +515,47 @@ body::before {
   border: 1px solid rgba(139, 233, 253, 0.2);
 }
 
+.network-interface-info {
+  margin-top: 8px;
+  padding: 6px 8px;
+  border-radius: 4px;
+  background: rgba(68, 71, 90, 0.3);
+  border: 1px solid rgba(80, 250, 123, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 9px;
+  white-space: nowrap;
+}
+
+.interface-name {
+  color: #BD93F9;
+  font-weight: bold;
+}
+
+.interface-status {
+  color: #50FA7B;
+  text-shadow: 0 0 6px #50FA7B;
+}
+
+.interface-ip {
+  color: #8BE9FD;
+}
+
+.separator {
+  color: #6272A4;
+}
+
+.gw-label,
+.mac-label {
+  color: #6272A4;
+}
+
+.gw-ip,
+.mac-addr {
+  color: #F8F8F2;
+}
+
 .defrag-grid {
   margin-top: 6px;
   display: grid;

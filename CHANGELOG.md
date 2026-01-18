@@ -5,3 +5,4 @@
 - Add packet flow and data stream indicators to Network Traffic panel.
 - Bring back map scan line overlay and tune stream randomness.
 - Add System Log matrix rain panel and restore Quick Links commands.
+- Add placeholder world map SVG overlay for Global Node Tracking.

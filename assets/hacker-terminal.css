@@ -452,6 +452,29 @@ body::before {
   background-size: 20px 20px;
 }
 
+.map-world {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.45;
+  z-index: 0;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(80, 250, 123, 0.4));
+}
+
+.map-world path {
+  fill: rgba(80, 250, 123, 0.18);
+  stroke: rgba(80, 250, 123, 0.45);
+  stroke-width: 1.8;
+}
+
+.map-grid,
+.map-pings {
+  position: relative;
+  z-index: 1;
+}
+
 .world-map-panel::before {
   content: "GLOBAL NODE TRACKING";
   position: absolute;

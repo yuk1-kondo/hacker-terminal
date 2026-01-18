@@ -499,6 +499,8 @@ function initCommands() {
   const defragGrid = document.getElementById('defrag-grid');
   const linkList = document.getElementById('link-list');
   const asciiArt = document.getElementById('ascii-art');
+  const calendar = document.getElementById('calendar');
+  const fileTree = document.getElementById('file-tree');
   const themeToggle = document.getElementById('theme-toggle');
   const themeLabel = document.getElementById('theme-label');
   if (!input || !output) return;
@@ -620,6 +622,81 @@ function initCommands() {
   }
 
   initAsciiArt();
+
+  // Calendar
+  function initCalendar() {
+    if (!calendar) return;
+
+    function generateCalendar() {
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const today = now.getDate();
+
+      const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                          'July', 'August', 'September', 'October', 'November', 'December'];
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const startDay = firstDay === 0 ? 6 : firstDay - 1; // Monday = 0
+
+      let cal = `     ${monthNames[month]} ${year}\n`;
+      cal += 'Mo Tu We Th Fr Sa Su\n';
+
+      let day = 1;
+      for (let i = 0; i < 6; i++) {
+        let week = '';
+        for (let j = 0; j < 7; j++) {
+          if (i === 0 && j < startDay) {
+            week += '   ';
+          } else if (day > daysInMonth) {
+            week += '   ';
+          } else {
+            if (day === today) {
+              week += `<span class="today">${String(day).padStart(2, ' ')}</span>`;
+            } else {
+              week += String(day).padStart(2, ' ');
+            }
+            day++;
+          }
+          if (j < 6) week += ' ';
+        }
+        cal += week + '\n';
+        if (day > daysInMonth) break;
+      }
+
+      return cal;
+    }
+
+    calendar.innerHTML = generateCalendar();
+  }
+
+  initCalendar();
+
+  // File Tree
+  function initFileTree() {
+    if (!fileTree) return;
+
+    const tree = `<span class="folder">/home/yuki/</span>
+├── <span class="folder">projects/</span>
+│   ├── <span class="folder">nexus/</span>
+│   │   └── <span class="file">main.go</span>
+│   ├── <span class="folder">onyx/</span>
+│   │   └── <span class="file">kernel.c</span>
+│   └── <span class="folder">scripts/</span>
+│       └── <span class="file">deploy.sh</span>
+├── <span class="folder">docs/</span>
+│   ├── <span class="file">README.md</span>
+│   └── <span class="file">TODO.txt</span>
+├── <span class="folder">.config/</span>
+│   └── <span class="folder">nexus/</span>
+│       └── <span class="file">settings.json</span>
+└── <span class="file">.zshrc</span>`;
+
+    fileTree.innerHTML = tree;
+  }
+
+  initFileTree();
 
   function addOutput(text) {
     const line = document.createElement('div');

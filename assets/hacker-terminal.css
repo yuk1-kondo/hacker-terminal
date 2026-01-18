@@ -296,8 +296,8 @@ body::before {
 .panel-subtitle {
   color: #6272A4; /* Dracula Comment */
   font-size: 10px;
-  margin-top: 15px;
-  margin-bottom: 5px;
+  margin-top: 8px;
+  margin-bottom: 4px;
   border-bottom: 1px solid #44475a;
   display: block;
 }
@@ -480,11 +480,11 @@ body::before {
 
 /* --- SPECTRUM ANALYZER --- */
 .spectrum-analyzer {
-  height: 40px;
+  height: 36px;
   background: rgba(40, 42, 54, 0.4);
   border: 1px solid #6272A4;
   border-radius: 2px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   position: relative;
   overflow: hidden;
 }
@@ -508,8 +508,8 @@ body::before {
 }
 
 .defrag-strip {
-  margin-top: 8px;
-  padding: 6px 8px;
+  margin-top: 6px;
+  padding: 4px 6px;
   border-radius: 4px;
   background: rgba(68, 71, 90, 0.25);
   border: 1px solid rgba(139, 233, 253, 0.2);
@@ -618,8 +618,8 @@ body::before {
 }
 
 .pulse-panel {
-  margin-top: 10px;
-  padding: 8px;
+  margin-top: 6px;
+  padding: 6px;
   border-radius: 4px;
   background: rgba(68, 71, 90, 0.3);
   border: 1px solid rgba(255, 121, 198, 0.35);
@@ -664,8 +664,8 @@ body::before {
 }
 
 .flow-panel {
-  margin-top: 10px;
-  padding: 8px;
+  margin-top: 6px;
+  padding: 6px;
   border-radius: 4px;
   background: rgba(68, 71, 90, 0.3);
   border: 1px solid rgba(80, 250, 123, 0.3);
@@ -673,7 +673,7 @@ body::before {
 
 .flow-field {
   position: relative;
-  height: 72px;
+  height: 64px;
   border-radius: 4px;
   background: rgba(40, 42, 54, 0.6);
   overflow: hidden;
@@ -703,10 +703,14 @@ body::before {
 }
 
 /* --- NETWORK PANEL --- */
+.network .panel-content {
+  overflow: hidden;
+}
+
 .network-stats {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
 .net-stat {
@@ -729,11 +733,11 @@ body::before {
 }
 
 .network-graph {
-  height: 100px;
+  height: 80px;
   background: rgba(40, 42, 54, 0.4);
   border: 1px solid #6272A4;
   border-radius: 4px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   position: relative;
 }
 
@@ -743,14 +747,14 @@ body::before {
 }
 
 .active-ports {
-  margin-top: 8px;
+  margin-top: 6px;
 }
 
 .ports-title {
   color: #6272A4;
   font-size: 9px;
   text-transform: uppercase;
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .port-list {
@@ -1009,6 +1013,45 @@ body::before {
   25% { color: #8BE9FD; text-shadow: 0 0 10px #8BE9FD; }
   50% { color: #BD93F9; text-shadow: 0 0 10px #BD93F9; }
   75% { color: #FF79C6; text-shadow: 0 0 10px #FF79C6; }
+}
+
+.info-widgets {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.widget {
+  padding: 6px;
+  border-radius: 4px;
+  background: rgba(40, 42, 54, 0.3);
+  border: 1px solid rgba(80, 250, 123, 0.15);
+}
+
+.calendar,
+.file-tree {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 8px;
+  line-height: 1.2;
+  color: #8BE9FD;
+  margin: 0;
+  white-space: pre;
+  overflow: hidden;
+}
+
+.calendar .today {
+  color: #FF79C6;
+  font-weight: bold;
+  text-shadow: 0 0 8px #FF79C6;
+}
+
+.file-tree .folder {
+  color: #BD93F9;
+}
+
+.file-tree .file {
+  color: #50FA7B;
 }
 
 @media (max-width: 900px) {

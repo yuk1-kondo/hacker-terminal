@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Hacker Terminal New Tab",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Turn your new tab page into a cyberpunk hacker terminal dashboard with real-time data uplinks.",
   "chrome_url_overrides": {
     "newtab": "index.html"
@@ -17,6 +17,6 @@
     "https://www.youtube.com/*"
   ],
   "content_security_policy": {
-    "extension_pages": "script-src 'self'; object-src 'self'; frame-src https://www.youtube.com;"
+    "extension_pages": "script-src 'self'; object-src 'self'; frame-src https://www.youtube.com https://cybermap.kaspersky.com;"
   }
 }

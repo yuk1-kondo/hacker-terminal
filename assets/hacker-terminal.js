@@ -148,7 +148,14 @@ function initMatrixRain() {
 // --- DATE TIME ---
 function initDateTime() {
   const datetimeEl = document.getElementById('datetime');
+  const clockTime = document.getElementById('clock-time');
+  const clockDate = document.getElementById('clock-date');
+  const clockTz = document.getElementById('clock-tz');
   if (!datetimeEl) return;
+
+  function pad(value) {
+    return String(value).padStart(2, '0');
+  }
 
   function update() {
     const now = new Date();
@@ -162,6 +169,17 @@ function initDateTime() {
       hour12: false
     };
     datetimeEl.textContent = now.toLocaleString('ja-JP', options);
+
+    if (clockTime) {
+      clockTime.textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    }
+    if (clockDate) {
+      clockDate.textContent = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`;
+    }
+    if (clockTz) {
+      const tzMatch = now.toTimeString().match(/\(([^)]+)\)/);
+      clockTz.textContent = tzMatch ? tzMatch[1].toUpperCase() : 'LOCAL';
+    }
   }
 
   update();
@@ -480,7 +498,19 @@ function initCommands() {
   const flowField = document.getElementById('flow-field');
   const defragGrid = document.getElementById('defrag-grid');
   const linkList = document.getElementById('link-list');
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeLabel = document.getElementById('theme-label');
   if (!input || !output) return;
+
+  const themeStorageKey = 'terminal.theme.v1';
+  const themes = [
+    { id: 'core', label: 'CORE', bg: '#282A36', panel: 'rgba(33, 34, 44, 0.9)', accent: '#50FA7B', highlight: '#8BE9FD', muted: '#6272A4' },
+    { id: 'alert', label: 'ALERT', bg: '#2b1b22', panel: 'rgba(39, 25, 31, 0.9)', accent: '#FF5555', highlight: '#FF79C6', muted: '#80606f' },
+    { id: 'stealth', label: 'STEALTH', bg: '#0f1a1f', panel: 'rgba(18, 28, 32, 0.9)', accent: '#69FF94', highlight: '#8BE9FD', muted: '#4d6b74' },
+    { id: 'neon', label: 'NEON', bg: '#1a0f1f', panel: 'rgba(32, 16, 40, 0.9)', accent: '#00f5ff', highlight: '#ffb86c', muted: '#7a5c8a' },
+    { id: 'sunrise', label: 'SUNRISE', bg: '#2a1c10', panel: 'rgba(45, 28, 18, 0.9)', accent: '#ffb86c', highlight: '#f1fa8c', muted: '#9b7b5c' }
+  ];
+  let themeIndex = 0;
 
   const linkStorageKey = 'terminal.quickLinks.v1';
   const defaultLinks = [
@@ -773,6 +803,32 @@ function initCommands() {
     });
   }
 
+  function applyTheme(theme) {
+    const root = document.documentElement;
+    root.style.setProperty('--scene-bg', theme.bg);
+    root.style.setProperty('--scene-panel', theme.panel);
+    root.style.setProperty('--scene-accent', theme.accent);
+    root.style.setProperty('--scene-highlight', theme.highlight);
+    root.style.setProperty('--scene-muted', theme.muted);
+    if (themeLabel) {
+      themeLabel.textContent = `THEME: ${theme.label}`;
+    }
+  }
+
+  function loadTheme() {
+    const stored = localStorage.getItem(themeStorageKey);
+    const matchIndex = themes.findIndex(theme => theme.id === stored);
+    themeIndex = matchIndex >= 0 ? matchIndex : 0;
+    applyTheme(themes[themeIndex]);
+  }
+
+  function cycleTheme() {
+    themeIndex = (themeIndex + 1) % themes.length;
+    const theme = themes[themeIndex];
+    localStorage.setItem(themeStorageKey, theme.id);
+    applyTheme(theme);
+  }
+
   function startVisualLoops() {
     renderPulses();
     updateDefrag();
@@ -781,6 +837,10 @@ function initCommands() {
     setInterval(updateDefrag, 1200);
   }
 
+  loadTheme();
+  if (themeToggle) {
+    themeToggle.addEventListener('click', cycleTheme);
+  }
   startVisualLoops();
 
   // Focus input on click anywhere in terminal

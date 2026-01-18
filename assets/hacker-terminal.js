@@ -498,6 +498,7 @@ function initCommands() {
   const flowField = document.getElementById('flow-field');
   const defragGrid = document.getElementById('defrag-grid');
   const linkList = document.getElementById('link-list');
+  const asciiArt = document.getElementById('ascii-art');
   const themeToggle = document.getElementById('theme-toggle');
   const themeLabel = document.getElementById('theme-label');
   if (!input || !output) return;
@@ -599,6 +600,26 @@ function initCommands() {
 
   let quickLinks = loadLinks();
   renderLinks(quickLinks);
+
+  // ASCII Art with animation
+  function initAsciiArt() {
+    if (!asciiArt) return;
+
+    const nexusAscii = `
+<span class="color-shift">    _   _    ___  ____    ___  ___  ___
+   | | / \\  / _ \\|  _ \\  | _ \\/ __|| _ \\
+   | |/ _ \\| | | | | | | |   \\ (__ |   /
+   |___/ \\_\\\\_| |_|_| |_| |_|\\\\___||_|_\\
+</span>
+<span class="glitch">   ___   ____    _   ___  ___
+  |_ _| |  _ \\  / \\ | _ \\/ __|
+   | |  | | | |/ _ \\|   \\ (__
+  |___| |_| |_|/_/ \\_\\_|_|\\\\___|
+</span>`;
+    asciiArt.innerHTML = nexusAscii;
+  }
+
+  initAsciiArt();
 
   function addOutput(text) {
     const line = document.createElement('div');
@@ -742,7 +763,7 @@ function initCommands() {
   function renderPulses() {
     if (!pulseList) return;
     pulseList.innerHTML = '';
-    const count = Math.floor(Math.random() * 5) + 7;
+    const count = 16; // Fixed count: 4 columns x 4 rows
     for (let i = 0; i < count; i++) {
       const pulse = document.createElement('div');
       pulse.className = 'pulse-item';
@@ -784,7 +805,7 @@ function initCommands() {
   function updateDefrag() {
     if (!defragGrid) return;
     if (!defragGrid.children.length) {
-      const total = 120;
+      const total = 192; // 24 columns x 8 rows
       for (let i = 0; i < total; i++) {
         const cell = document.createElement('div');
         cell.className = 'defrag-cell';
